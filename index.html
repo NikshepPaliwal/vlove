@@ -118,7 +118,7 @@
         }
         .res-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
         .res-name { font-weight: bold; color: #333; font-size: 1rem; }
-        .res-status { font-size: 1.2rem; }
+        .res-status { font-weight: bold; color: #2ed573; font-size: 0.9rem; } /* Green color for YES */
         .res-msg { font-size: 0.85rem; color: #666; font-style: italic; line-height: 1.4; }
         .res-date { font-size: 0.7rem; color: #aaa; margin-top: 5px; display: block; text-align: right; }
 
@@ -196,7 +196,8 @@
         
         <div class="buttons-wrapper">
             <button class="btn-primary" style="width: 120px;" onclick="handleYesClick()">Yes 💖</button>
-            <div style="width: 120px;"></div> </div>
+            <div style="width: 120px;"></div> 
+        </div>
     </div>
 
     <button id="no-btn" class="hidden">No 😢</button>
@@ -291,14 +292,14 @@
                 
                 // Render Beautiful Cards
                 res.data.reverse().forEach(row => {
-                    // Safe formatting for date
                     const dateStr = new Date(row.date).toLocaleDateString();
                     
+                    // FIXED: Now showing the actual status text (YES) instead of just an emoji
                     list.innerHTML += `
                     <div class="response-card">
                         <div class="res-header">
                             <span class="res-name">${row.name}</span>
-                            <span class="res-status">💖</span>
+                            <span class="res-status">${row.status} 💖</span>
                         </div>
                         <div class="res-msg">"${row.msg || 'No message'}"</div>
                         <span class="res-date">${dateStr}</span>
@@ -348,7 +349,7 @@
 
             fetch(SCRIPT_URL, {
                 method: 'POST',
-                mode: 'no-cors', // Important for Google Script
+                mode: 'no-cors', 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     action: "save",
