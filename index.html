@@ -3,46 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Valentine 💘</title>
+    <title>Valentine Connection 💖</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #fff0f3 0%, #ffe6eb 100%); text-align: center; padding: 20px; min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; }
-        .container { width: 100%; max-width: 400px; background: rgba(255,255,255,0.9); padding: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(255, 71, 87, 0.2); backdrop-filter: blur(10px); }
-        h1 { color: #ff4757; margin-bottom: 10px; }
-        p { color: #555; font-size: 0.9rem; }
+        .container { width: 100%; max-width: 400px; background: rgba(255,255,255,0.95); padding: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(255, 71, 87, 0.2); }
+        h1 { color: #ff4757; margin-bottom: 5px; font-size: 1.8rem; }
+        p { color: #666; font-size: 0.9rem; margin-bottom: 20px; }
         
-        input, textarea { width: 100%; padding: 12px; margin: 8px 0; border-radius: 12px; border: 2px solid #ffccd5; box-sizing: border-box; font-family: inherit; }
-        input:focus { outline: none; border-color: #ff4757; }
+        .input-group { text-align: left; margin-bottom: 15px; }
+        label { font-size: 0.8rem; color: #ff4757; font-weight: bold; margin-left: 5px; }
+        input, textarea { width: 100%; padding: 12px; margin-top: 5px; border-radius: 12px; border: 2px solid #ffccd5; box-sizing: border-box; font-family: inherit; font-size: 1rem; }
+        input:focus, textarea:focus { outline: none; border-color: #ff4757; background: #fff5f6; }
         
-        button { width: 100%; background: #ff4757; color: white; border: none; padding: 15px; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 1rem; transition: transform 0.2s; }
-        button:active { transform: scale(0.95); }
-        button.secondary { background: #ffe0e3; color: #ff4757; }
+        button { width: 100%; background: #ff4757; color: white; border: none; padding: 15px; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 1rem; transition: 0.2s; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
+        button.secondary { background: transparent; color: #ff4757; border: 2px solid #ffccd5; }
+        button.secondary:hover { background: #fff0f3; }
         
         .hidden { display: none; }
-        .card { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; text-align: left; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-left: 4px solid #ff4757; }
-        .timestamp { font-size: 0.7rem; color: #999; display: block; margin-top: 5px; }
+        .card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 10px; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid #ff4757; }
+        .timestamp { font-size: 0.7rem; color: #aaa; float: right; }
     </style>
 </head>
 <body>
 
     <div class="container">
         
-        <div id="scene-creator">
-            <h1>Valentine Link 💌</h1>
-            <p>Create a link, send it to your crush, and see their reply here.</p>
-            <button onclick="generateLink()">Create My Link</button>
-            <br>
-            <div id="link-area" class="hidden" style="margin-top:20px;">
-                <input type="text" id="my-link" readonly onclick="this.select()">
-                <button onclick="copyLink()">Copy Link 📋</button>
-                <button class="secondary" onclick="checkResponses()">Check Responses 📬</button>
+        <div id="scene-login">
+            <h1>Valentine App 💌</h1>
+            <p>Create a link for your crush, or check your inbox.</p>
+            
+            <div class="input-group">
+                <label>Set a Secret Passcode</label>
+                <input type="text" id="passcode" placeholder="e.g. pikachu123" oninput="cleanInput(this)">
+                <p style="font-size:0.7rem; margin:5px 0 0;">Remember this! You need it to check replies.</p>
             </div>
+
+            <button onclick="handleLogin()">Create / Login</button>
+        </div>
+
+        <div id="scene-dashboard" class="hidden">
+            <h1>Your Dashboard 📬</h1>
+            <p>Share this link with your special someone:</p>
+            
+            <input type="text" id="share-link" readonly onclick="this.select()">
+            <button onclick="copyLink()">Copy Link 📋</button>
+            
+            <div style="margin-top: 30px; text-align: left;">
+                <label>Responses:</label>
+                <div id="responses-list" style="margin-top:10px;">Loading...</div>
+            </div>
+            
+            <button class="secondary" onclick="logout()">Logout</button>
         </div>
 
         <div id="scene-receiver" class="hidden">
             <h1>Will you be my Valentine? 🥺</h1>
-            <div style="font-size:60px; margin: 20px 0;">🌹</div>
+            <div style="font-size:60px; margin: 20px 0; animation: bounce 2s infinite;">🌹</div>
+            
             <input type="text" id="r-name" placeholder="Your Name">
             <textarea id="r-msg" rows="3" placeholder="Type a message... (Optional)"></textarea>
             
@@ -50,98 +70,58 @@
             <button class="secondary" onclick="sendReply('NO')">No 😢</button>
         </div>
 
-        <div id="scene-dashboard" class="hidden">
-            <h1>Inbox 💌</h1>
-            <div id="responses-list">Loading...</div>
-            <button class="secondary" onclick="location.reload()">Back</button>
-        </div>
-
     </div>
 
     <script>
-        // 👇👇 PASTE YOUR GOOGLE SCRIPT URL BELOW 👇👇
+        // 👇👇 PASTE YOUR URL BELOW (No need to change if already set) 👇👇
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwCVWi-VitF2yjjGstKeFfeTu9aF2XZE6IS9TkkhQzh_PpNsEth30P4kObnFotqOV-p/exec"; 
 
         // --- Logic ---
         const urlParams = new URLSearchParams(window.location.search);
-        const urlID = urlParams.get('id'); // ID from the URL (if receiving)
+        const urlID = urlParams.get('id'); 
 
-        // On Load: Decide which scene to show
+        // 1. Initial Check
         if (urlID) {
-            // If there is an ID in the URL, someone is receiving the card
+            // If URL has ID, show Receiver Screen
             showScene('scene-receiver');
         } else {
-            // No ID? You are the Creator
-            showScene('scene-creator');
-            
-            // If you already made a link before, show it
-            const savedID = localStorage.getItem('v_uid');
-            if(savedID) {
-                document.getElementById('link-area').classList.remove('hidden');
-                document.getElementById('my-link').value = window.location.href + "?id=" + savedID;
+            // Else, check if user was already logged in
+            const savedPass = localStorage.getItem('v_pass');
+            if(savedPass) {
+                document.getElementById('passcode').value = savedPass;
+                handleLogin(); // Auto-login
+            } else {
+                showScene('scene-login');
             }
         }
 
-        function showScene(id) {
-            document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
-            document.getElementById(id).classList.remove('hidden');
-        }
+        // --- CORE FUNCTIONS ---
 
-        // --- CREATOR FUNCTIONS ---
-        function generateLink() {
-            let uid = localStorage.getItem('v_uid');
-            if(!uid) {
-                // Generate random ID (e.g., user_x8d9s)
-                uid = 'user_' + Math.random().toString(36).substr(2, 6);
-                localStorage.setItem('v_uid', uid);
-            }
-            
-            const link = window.location.href.split('?')[0] + "?id=" + uid;
-            document.getElementById('my-link').value = link;
-            document.getElementById('link-area').classList.remove('hidden');
-        }
+        function handleLogin() {
+            const pass = document.getElementById('passcode').value.trim();
+            if(!pass) { alert("Please enter a passcode!"); return; }
 
-        function copyLink() {
-            const copyText = document.getElementById("my-link");
-            copyText.select();
-            document.execCommand("copy");
-            alert("Link copied! Send it to them.");
-        }
+            // Save for auto-login next time
+            localStorage.setItem('v_pass', pass);
 
-        // --- RECEIVER FUNCTIONS ---
-        function sendReply(status) {
-            const name = document.getElementById('r-name').value;
-            const msg = document.getElementById('r-msg').value;
+            // Generate a Unique ID from the passcode (Simple Hash)
+            // This ensures "pikachu" always generates the SAME link ID.
+            const uid = btoa(pass).replace(/=/g, '').substring(0, 10); // Basic encoding
 
-            if(!name) { alert("Please enter your name!"); return; }
-
-            if(status === 'YES') confetti();
-
-            // Send to Google Sheet
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors', // Important for Google Scripts
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: "save",
-                    uid: urlID,
-                    name: name,
-                    msg: msg,
-                    status: status
-                })
-            }).then(() => {
-                document.querySelector('.container').innerHTML = "<h1>Sent! ❤️</h1><p>Thanks for your answer.</p>";
-            }).catch(err => alert("Error sending: " + err));
-        }
-
-        // --- DASHBOARD FUNCTIONS ---
-        function checkResponses() {
-            const uid = localStorage.getItem('v_uid');
-            if(!uid) return;
-
+            // Show Dashboard
             showScene('scene-dashboard');
+            
+            // Generate Link
+            const link = window.location.href.split('?')[0] + "?id=" + uid;
+            document.getElementById('share-link').value = link;
+
+            // Load Messages
+            fetchResponses(uid);
+        }
+
+        function fetchResponses(uid) {
             const list = document.getElementById('responses-list');
-            list.innerHTML = "Checking...";
+            list.innerHTML = "<p style='text-align:center; color:#999'>Checking inbox...</p>";
 
             fetch(SCRIPT_URL, {
                 method: 'POST',
@@ -151,22 +131,71 @@
             .then(response => {
                 list.innerHTML = "";
                 if(response.data.length === 0) {
-                    list.innerHTML = "<p>No replies yet. Keep waiting! 🕒</p>";
+                    list.innerHTML = "<p style='text-align:center; color:#999'>No replies yet. Send your link!</p>";
                     return;
                 }
                 
-                // Show latest first
+                // Show messages
                 response.data.reverse().forEach(row => {
                     const html = `
                     <div class="card">
-                        <strong>${row.name}</strong> said <b style="color:${row.status=='YES'?'#2ed573':'#ff4757'}">${row.status}</b>
-                        <br>${row.msg}
-                        <span class="timestamp">${new Date(row.date).toLocaleString()}</span>
+                        <span class="timestamp">${new Date(row.date).toLocaleDateString()}</span>
+                        <strong>${row.name}</strong><br>
+                        Answer: <b style="color:${row.status=='YES'?'#2ed573':'#ff4757'}">${row.status}</b>
+                        <p style="margin:5px 0 0; color:#555; font-size:0.9rem;">"${row.msg}"</p>
                     </div>`;
                     list.innerHTML += html;
                 });
             });
         }
+
+        function sendReply(status) {
+            const name = document.getElementById('r-name').value;
+            const msg = document.getElementById('r-msg').value;
+            if(!name) { alert("Please enter your name!"); return; }
+
+            if(status === 'YES') confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+
+            document.querySelector('.container').innerHTML = "<h2>Sending... 🔄</h2>";
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: "save",
+                    uid: urlID,
+                    name: name,
+                    msg: msg,
+                    status: status
+                })
+            }).then(() => {
+                document.querySelector('.container').innerHTML = "<h1>Sent! 💘</h1><p>Your answer has been delivered safely.</p>";
+            });
+        }
+
+        // --- UTILS ---
+        function showScene(id) {
+            document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+        }
+        
+        function copyLink() {
+            const copyText = document.getElementById("share-link");
+            copyText.select();
+            document.execCommand("copy");
+            alert("Link copied! Send it to them.");
+        }
+
+        function logout() {
+            localStorage.removeItem('v_pass');
+            location.reload();
+        }
+
+        function cleanInput(input) {
+            input.value = input.value.replace(/[^a-zA-Z0-9]/g, ''); // Only letters/numbers
+        }
     </script>
+    <style>@keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }</style>
 </body>
 </html>
