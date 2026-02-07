@@ -1,219 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Be My Valentine 💘</title>
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Valentine 💘</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
     <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
-        background-size: 400% 400%;
-        animation: bgMove 12s ease infinite;
-        font-family: "Poppins", sans-serif;
-        overflow: hidden;
-      }
-      @keyframes bgMove {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
-      .card {
-        width: min(92%, 420px);
-        padding: 40px 30px 45px;
-        background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(18px);
-        border-radius: 28px;
-        text-align: center;
-        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
-        z-index: 1;
-        margin: auto;
-      }
-      .emoji {
-        font-size: 68px;
-        margin-bottom: 12px;
-        animation: heartbeat 1.8s infinite;
-      }
-      @keyframes heartbeat {
-        0%,
-        100% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.1);
-        }
-      }
-      h2 {
-        font-family: "Playfair Display", serif;
-        font-size: 28px;
-        color: #4a1c2f;
-        margin-bottom: 30px;
-      }
-      .buttons {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        min-height: 60px;
-      }
-      button {
-        padding: 14px 36px;
-        border-radius: 40px;
-        border: none;
-        font-size: 16px;
-        font-weight: 500;
-        cursor: pointer;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-      }
-      #yes {
-        background: linear-gradient(135deg, #ff4d6d, #ff758f);
-        color: #fff;
-      }
-      #no {
-        background: rgba(255, 255, 255, 0.9);
-        color: #777;
-        position: fixed;
-        z-index: 9999;
-        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        touch-action: none;
-      }
-      .footer {
-        width: 100%;
-        padding: 20px;
-        text-align: center;
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(5px);
-        color: #4a1c2f;
-        font-size: 14px;
-        z-index: 2;
-      }
-      .heart {
-        position: absolute;
-        bottom: -20px;
-        animation: floatUp linear forwards;
-        pointer-events: none;
-      }
-      @keyframes floatUp {
-        from {
-          transform: translateY(0);
-          opacity: 1;
-        }
-        to {
-          transform: translateY(-120vh);
-          opacity: 0;
-        }
-      }
+        body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #fff0f3 0%, #ffe6eb 100%); text-align: center; padding: 20px; min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; }
+        .container { width: 100%; max-width: 400px; background: rgba(255,255,255,0.9); padding: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(255, 71, 87, 0.2); backdrop-filter: blur(10px); }
+        h1 { color: #ff4757; margin-bottom: 10px; }
+        p { color: #555; font-size: 0.9rem; }
+        
+        input, textarea { width: 100%; padding: 12px; margin: 8px 0; border-radius: 12px; border: 2px solid #ffccd5; box-sizing: border-box; font-family: inherit; }
+        input:focus { outline: none; border-color: #ff4757; }
+        
+        button { width: 100%; background: #ff4757; color: white; border: none; padding: 15px; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 1rem; transition: transform 0.2s; }
+        button:active { transform: scale(0.95); }
+        button.secondary { background: #ffe0e3; color: #ff4757; }
+        
+        .hidden { display: none; }
+        .card { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; text-align: left; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-left: 4px solid #ff4757; }
+        .timestamp { font-size: 0.7rem; color: #999; display: block; margin-top: 5px; }
     </style>
-  </head>
-  <body>
-    <div class="card">
-      <div class="emoji">🐱❤️</div>
-      <h2>Oyee,<br />will you be my Valentine?</h2>
-      <div class="buttons">
-        <div style="width: 140px"><button id="yes">Yes 💖</button></div>
-        <div style="width: 140px"></div>
-      </div>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div id="scene-creator">
+            <h1>Valentine Link 💌</h1>
+            <p>Create a link, send it to your crush, and see their reply here.</p>
+            <button onclick="generateLink()">Create My Link</button>
+            <br>
+            <div id="link-area" class="hidden" style="margin-top:20px;">
+                <input type="text" id="my-link" readonly onclick="this.select()">
+                <button onclick="copyLink()">Copy Link 📋</button>
+                <button class="secondary" onclick="checkResponses()">Check Responses 📬</button>
+            </div>
+        </div>
+
+        <div id="scene-receiver" class="hidden">
+            <h1>Will you be my Valentine? 🥺</h1>
+            <div style="font-size:60px; margin: 20px 0;">🌹</div>
+            <input type="text" id="r-name" placeholder="Your Name">
+            <textarea id="r-msg" rows="3" placeholder="Type a message... (Optional)"></textarea>
+            
+            <button onclick="sendReply('YES')">YES! 💖</button>
+            <button class="secondary" onclick="sendReply('NO')">No 😢</button>
+        </div>
+
+        <div id="scene-dashboard" class="hidden">
+            <h1>Inbox 💌</h1>
+            <div id="responses-list">Loading...</div>
+            <button class="secondary" onclick="location.reload()">Back</button>
+        </div>
+
     </div>
 
-    <button id="no">No 😢</button>
-
-    <footer class="footer">
-      <p>@Ravikant-Thanks for visiting • Made with love 💕</p>
-      <p id="visitor-count">Visitor Count: ...</p>
-    </footer>
-
     <script>
-      const GOOGLE_SHEET_URL =
-        "https://script.google.com/macros/s/AKfycbx92oMaGycqVrZ164WuPJy-dlcVYr0DoxobUZ8WbHl0aNCLxg0aQfaDSjhDhQwqfk91aA/exec"; // <--- PASTE HERE
-      const noBtn = document.getElementById("no");
-      const yesBtn = document.getElementById("yes");
-      const visitorDisplay = document.getElementById("visitor-count");
+        // 👇👇 PASTE YOUR GOOGLE SCRIPT URL BELOW 👇👇
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwCVWi-VitF2yjjGstKeFfeTu9aF2XZE6IS9TkkhQzh_PpNsEth30P4kObnFotqOV-p/exec"; 
 
-      // Visitor Counter
-      let count =
-        localStorage.getItem("visCount") || Math.floor(Math.random() * 500);
-      count = parseInt(count) + 1;
-      localStorage.setItem("visCount", count);
-      visitorDisplay.innerText = `Visitor Count: ${count}`;
+        // --- Logic ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlID = urlParams.get('id'); // ID from the URL (if receiving)
 
-      // No Button Logic
-      function moveButton() {
-        const maxX = window.innerWidth - noBtn.offsetWidth - 20;
-        const maxY = window.innerHeight - noBtn.offsetHeight - 100;
-        noBtn.style.left =
-          Math.max(20, Math.floor(Math.random() * maxX)) + "px";
-        noBtn.style.top = Math.max(20, Math.floor(Math.random() * maxY)) + "px";
-      }
-      noBtn.addEventListener("mouseover", moveButton);
-      noBtn.addEventListener("touchstart", (e) => {
-        e.preventDefault();
-        moveButton();
-      });
+        // On Load: Decide which scene to show
+        if (urlID) {
+            // If there is an ID in the URL, someone is receiving the card
+            showScene('scene-receiver');
+        } else {
+            // No ID? You are the Creator
+            showScene('scene-creator');
+            
+            // If you already made a link before, show it
+            const savedID = localStorage.getItem('v_uid');
+            if(savedID) {
+                document.getElementById('link-area').classList.remove('hidden');
+                document.getElementById('my-link').value = window.location.href + "?id=" + savedID;
+            }
+        }
 
-      // Yes Button Logic
-      yesBtn.addEventListener("click", () => {
-        const name = prompt(
-          "मैं कितना ही थकूँ, तुझसे मिलने आने को दिल करता है, है किस्मत में तू नहीं शायद, फिर भी आजमाने को दिल करता है, तेरे चेहरे के रंग से कोई रंग चुराने को दिल करता है... तू है ही ऐसी, कि तुझे ज़माने को दिखाने का दिल करता है। ❤️✨ अब आपका क्या ख़याल है?"
-        );
-        if (!name) return;
+        function showScene(id) {
+            document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+        }
 
-        confetti({ particleCount: 300, spread: 150, origin: { y: 0.6 } });
+        // --- CREATOR FUNCTIONS ---
+        function generateLink() {
+            let uid = localStorage.getItem('v_uid');
+            if(!uid) {
+                // Generate random ID (e.g., user_x8d9s)
+                uid = 'user_' + Math.random().toString(36).substr(2, 6);
+                localStorage.setItem('v_uid', uid);
+            }
+            
+            const link = window.location.href.split('?')[0] + "?id=" + uid;
+            document.getElementById('my-link').value = link;
+            document.getElementById('link-area').classList.remove('hidden');
+        }
 
-        // Send to Google Sheets
-        fetch(GOOGLE_SHEET_URL, {
-          method: "POST",
-          mode: "no-cors", // Required for Google Script
-          cache: "no-cache",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: name,
-            date: new Date().toLocaleString(),
-            status: "YES!",
-          }),
-        });
+        function copyLink() {
+            const copyText = document.getElementById("my-link");
+            copyText.select();
+            document.execCommand("copy");
+            alert("Link copied! Send it to them.");
+        }
 
-        alert(`Got it, ${name}! I've saved your answer! 💖`);
-      });
+        // --- RECEIVER FUNCTIONS ---
+        function sendReply(status) {
+            const name = document.getElementById('r-name').value;
+            const msg = document.getElementById('r-msg').value;
 
-      // Floating Hearts
-      function createHeart() {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = Math.random() * 20 + 10 + "px";
-        heart.style.animationDuration = Math.random() * 3 + 2 + "s";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 5000);
-      }
-      setInterval(createHeart, 300);
+            if(!name) { alert("Please enter your name!"); return; }
 
-      window.onload = () => {
-        const rect = document.querySelector(".card").getBoundingClientRect();
-        noBtn.style.left = rect.left + rect.width / 2 + 10 + "px";
-        noBtn.style.top = rect.top + 235 + "px";
-      };
+            if(status === 'YES') confetti();
+
+            // Send to Google Sheet
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors', // Important for Google Scripts
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: "save",
+                    uid: urlID,
+                    name: name,
+                    msg: msg,
+                    status: status
+                })
+            }).then(() => {
+                document.querySelector('.container').innerHTML = "<h1>Sent! ❤️</h1><p>Thanks for your answer.</p>";
+            }).catch(err => alert("Error sending: " + err));
+        }
+
+        // --- DASHBOARD FUNCTIONS ---
+        function checkResponses() {
+            const uid = localStorage.getItem('v_uid');
+            if(!uid) return;
+
+            showScene('scene-dashboard');
+            const list = document.getElementById('responses-list');
+            list.innerHTML = "Checking...";
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify({ action: "read", uid: uid })
+            })
+            .then(res => res.json())
+            .then(response => {
+                list.innerHTML = "";
+                if(response.data.length === 0) {
+                    list.innerHTML = "<p>No replies yet. Keep waiting! 🕒</p>";
+                    return;
+                }
+                
+                // Show latest first
+                response.data.reverse().forEach(row => {
+                    const html = `
+                    <div class="card">
+                        <strong>${row.name}</strong> said <b style="color:${row.status=='YES'?'#2ed573':'#ff4757'}">${row.status}</b>
+                        <br>${row.msg}
+                        <span class="timestamp">${new Date(row.date).toLocaleString()}</span>
+                    </div>`;
+                    list.innerHTML += html;
+                });
+            });
+        }
     </script>
-  </body>
+</body>
 </html>
