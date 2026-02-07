@@ -3,125 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine Connection 💖</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>My Valentine 💘</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #fff0f3 0%, #ffe6eb 100%); text-align: center; padding: 20px; min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; }
-        .container { width: 100%; max-width: 400px; background: rgba(255,255,255,0.95); padding: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(255, 71, 87, 0.2); }
-        h1 { color: #ff4757; margin-bottom: 5px; font-size: 1.8rem; }
-        p { color: #666; font-size: 0.9rem; margin-bottom: 20px; }
-        
-        .input-group { text-align: left; margin-bottom: 15px; }
-        label { font-size: 0.8rem; color: #ff4757; font-weight: bold; margin-left: 5px; }
-        input, textarea { width: 100%; padding: 12px; margin-top: 5px; border-radius: 12px; border: 2px solid #ffccd5; box-sizing: border-box; font-family: inherit; font-size: 1rem; }
-        input:focus, textarea:focus { outline: none; border-color: #ff4757; background: #fff5f6; }
-        
-        button { width: 100%; background: #ff4757; color: white; border: none; padding: 15px; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 1rem; transition: 0.2s; }
-        button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
-        button.secondary { background: transparent; color: #ff4757; border: 2px solid #ffccd5; }
-        button.secondary:hover { background: #fff0f3; }
-        
-        .hidden { display: none; }
-        .card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 10px; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid #ff4757; }
-        .timestamp { font-size: 0.7rem; color: #aaa; float: right; }
+        :root {
+            --primary: #ff4d6d;
+            --dark-red: #590d22;
+            --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            --glass: rgba(255, 255, 255, 0.25);
+            --border: rgba(255, 255, 255, 0.5);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-image: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            overflow: hidden; /* Hide scrollbars for floating hearts */
+        }
+
+        /* Moving Background Gradient */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Background Hearts */
+        .bg-hearts {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden; z-index: -1; pointer-events: none;
+        }
+        .bg-heart {
+            position: absolute; bottom: -50px;
+            color: rgba(255, 255, 255, 0.5);
+            animation: floatUp linear infinite;
+        }
+
+        /* Main Glass Card */
+        .container {
+            width: 90%;
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            transition: height 0.3s ease;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin: 0 0 10px 0;
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.6);
+        }
+
+        p { color: #6d6875; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; }
+
+        /* Inputs */
+        .input-group { text-align: left; margin-bottom: 20px; }
+        label {
+            font-size: 0.85rem; color: var(--primary);
+            font-weight: 700; letter-spacing: 0.5px;
+            text-transform: uppercase; margin-left: 5px;
+        }
+        input, textarea {
+            width: 100%; padding: 14px 15px; margin-top: 8px;
+            border-radius: 15px; border: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.8);
+            font-family: inherit; font-size: 1rem; color: var(--dark-red);
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
+        }
+        input:focus, textarea:focus {
+            outline: none; border-color: var(--primary);
+            background: #fff; box-shadow: 0 5px 15px rgba(255, 77, 109, 0.15);
+        }
+
+        /* Buttons */
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #ff4d6d 0%, #ff758f 100%);
+            color: white; border: none;
+            padding: 16px; border-radius: 50px;
+            font-weight: 700; font-size: 1.1rem;
+            cursor: pointer; margin-top: 15px;
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            letter-spacing: 0.5px;
+        }
+        button:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(255, 77, 109, 0.4); }
+        button:active { transform: scale(0.97); }
+
+        button.secondary {
+            background: transparent; color: var(--primary);
+            border: 2px solid var(--primary); box-shadow: none;
+        }
+        button.secondary:hover { background: rgba(255, 77, 109, 0.1); }
+
+        /* The Dashboard Cards */
+        .card {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 6px solid var(--primary);
+            position: relative;
+        }
+        .timestamp {
+            font-size: 0.75rem; color: #aaa;
+            position: absolute; top: 15px; right: 15px;
+        }
+        .card strong { color: var(--dark-red); font-size: 1.1rem; }
+
+        /* Receiver Animation */
+        .big-heart {
+            font-size: 80px; margin: 10px 0;
+            display: inline-block;
+            filter: drop-shadow(0 5px 10px rgba(255, 77, 109, 0.3));
+            animation: heartbeat 1.5s infinite;
+        }
+
+        /* Animations */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Utility */
+        .hidden { display: none !important; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="bg-hearts" id="bg-hearts"></div>
+
+    <div class="container fade-in">
         
         <div id="scene-login">
-            <h1>Valentine App 💌</h1>
-            <p>Create a link for your crush, or check your inbox.</p>
+            <h1>Valentine Link 💌</h1>
+            <p>Create a secret page for your crush,<br>or login to see your replies.</p>
             
             <div class="input-group">
-                <label>Set a Secret Passcode</label>
-                <input type="text" id="passcode" placeholder="e.g. pikachu123" oninput="cleanInput(this)">
-                <p style="font-size:0.7rem; margin:5px 0 0;">Remember this! You need it to check replies.</p>
+                <label>Create a Secret Passcode</label>
+                <input type="text" id="passcode" placeholder="e.g. Love123 (Don't forget this!)" oninput="cleanInput(this)">
             </div>
 
-            <button onclick="handleLogin()">Create / Login</button>
+            <button onclick="handleLogin()">Login / Create ✨</button>
         </div>
 
         <div id="scene-dashboard" class="hidden">
-            <h1>Your Dashboard 📬</h1>
-            <p>Share this link with your special someone:</p>
+            <h1>Your Inbox 📬</h1>
+            <p>Copy this link & send it to them!</p>
             
-            <input type="text" id="share-link" readonly onclick="this.select()">
+            <input type="text" id="share-link" readonly onclick="this.select()" style="text-align:center; background:#fff; border: 2px dashed var(--primary);">
             <button onclick="copyLink()">Copy Link 📋</button>
             
             <div style="margin-top: 30px; text-align: left;">
-                <label>Responses:</label>
-                <div id="responses-list" style="margin-top:10px;">Loading...</div>
+                <label>Replies Received:</label>
+                <div id="responses-list" style="margin-top:10px;">
+                    </div>
             </div>
             
-            <button class="secondary" onclick="logout()">Logout</button>
+            <button class="secondary" onclick="logout()" style="margin-top:30px; font-size:0.9rem; padding:10px;">Log Out</button>
         </div>
 
         <div id="scene-receiver" class="hidden">
-            <h1>Will you be my Valentine? 🥺</h1>
-            <div style="font-size:60px; margin: 20px 0; animation: bounce 2s infinite;">🌹</div>
+            <h1>Be My Valentine?</h1>
+            <div class="big-heart">💖</div>
+            <p>Someone special has a question for you...</p>
             
-            <input type="text" id="r-name" placeholder="Your Name">
-            <textarea id="r-msg" rows="3" placeholder="Type a message... (Optional)"></textarea>
+            <div class="input-group">
+                <input type="text" id="r-name" placeholder="Enter your name...">
+            </div>
+            <div class="input-group">
+                <textarea id="r-msg" rows="3" placeholder="Write a cute message... (Optional)"></textarea>
+            </div>
             
-            <button onclick="sendReply('YES')">YES! 💖</button>
-            <button class="secondary" onclick="sendReply('NO')">No 😢</button>
+            <button onclick="sendReply('YES')">YES! I'd Love To! 🌹</button>
+            <button class="secondary" onclick="sendReply('NO')">No, sorry... 😢</button>
         </div>
 
     </div>
 
     <script>
-        // 👇👇 PASTE YOUR URL BELOW (No need to change if already set) 👇👇
+        // 👇👇 PASTE YOUR URL BELOW 👇👇
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwCVWi-VitF2yjjGstKeFfeTu9aF2XZE6IS9TkkhQzh_PpNsEth30P4kObnFotqOV-p/exec"; 
 
         // --- Logic ---
         const urlParams = new URLSearchParams(window.location.search);
         const urlID = urlParams.get('id'); 
 
-        // 1. Initial Check
-        if (urlID) {
-            // If URL has ID, show Receiver Screen
-            showScene('scene-receiver');
-        } else {
-            // Else, check if user was already logged in
-            const savedPass = localStorage.getItem('v_pass');
-            if(savedPass) {
-                document.getElementById('passcode').value = savedPass;
-                handleLogin(); // Auto-login
+        // Initial Load Logic
+        window.onload = function() {
+            createBackgroundHearts();
+            
+            if (urlID) {
+                showScene('scene-receiver');
             } else {
-                showScene('scene-login');
+                const savedPass = localStorage.getItem('v_pass');
+                if(savedPass) {
+                    document.getElementById('passcode').value = savedPass;
+                    handleLogin(); 
+                } else {
+                    showScene('scene-login');
+                }
             }
-        }
+        };
 
         // --- CORE FUNCTIONS ---
 
         function handleLogin() {
             const pass = document.getElementById('passcode').value.trim();
-            if(!pass) { alert("Please enter a passcode!"); return; }
+            if(!pass) { alert("Please enter a passcode to secure your link!"); return; }
 
-            // Save for auto-login next time
             localStorage.setItem('v_pass', pass);
 
-            // Generate a Unique ID from the passcode (Simple Hash)
-            // This ensures "pikachu" always generates the SAME link ID.
-            const uid = btoa(pass).replace(/=/g, '').substring(0, 10); // Basic encoding
+            // Simple Hash for ID
+            const uid = btoa(pass).replace(/=/g, '').substring(0, 10); 
 
-            // Show Dashboard
             showScene('scene-dashboard');
             
-            // Generate Link
             const link = window.location.href.split('?')[0] + "?id=" + uid;
             document.getElementById('share-link').value = link;
 
-            // Load Messages
             fetchResponses(uid);
         }
 
         function fetchResponses(uid) {
             const list = document.getElementById('responses-list');
-            list.innerHTML = "<p style='text-align:center; color:#999'>Checking inbox...</p>";
+            list.innerHTML = "<p style='text-align:center; color:#999; font-style:italic;'>Checking for love letters...</p>";
 
             fetch(SCRIPT_URL, {
                 method: 'POST',
@@ -131,18 +271,17 @@
             .then(response => {
                 list.innerHTML = "";
                 if(response.data.length === 0) {
-                    list.innerHTML = "<p style='text-align:center; color:#999'>No replies yet. Send your link!</p>";
+                    list.innerHTML = "<p style='text-align:center; color:#999'>No replies yet. Send the link! 🥺</p>";
                     return;
                 }
                 
-                // Show messages
                 response.data.reverse().forEach(row => {
                     const html = `
-                    <div class="card">
+                    <div class="card fade-in">
                         <span class="timestamp">${new Date(row.date).toLocaleDateString()}</span>
                         <strong>${row.name}</strong><br>
-                        Answer: <b style="color:${row.status=='YES'?'#2ed573':'#ff4757'}">${row.status}</b>
-                        <p style="margin:5px 0 0; color:#555; font-size:0.9rem;">"${row.msg}"</p>
+                        Said: <b style="color:${row.status=='YES'?'#2ed573':'#ff4757'}">${row.status}</b>
+                        <p style="margin:5px 0 0; color:#555; font-size:0.95rem;">"${row.msg}"</p>
                     </div>`;
                     list.innerHTML += html;
                 });
@@ -154,9 +293,9 @@
             const msg = document.getElementById('r-msg').value;
             if(!name) { alert("Please enter your name!"); return; }
 
-            if(status === 'YES') confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            if(status === 'YES') confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff4d6d', '#ffb3c1', '#fff'] });
 
-            document.querySelector('.container').innerHTML = "<h2>Sending... 🔄</h2>";
+            document.querySelector('.container').innerHTML = "<h1 class='fade-in'>Sending... 💌</h1>";
 
             fetch(SCRIPT_URL, {
                 method: 'POST',
@@ -170,11 +309,13 @@
                     status: status
                 })
             }).then(() => {
-                document.querySelector('.container').innerHTML = "<h1>Sent! 💘</h1><p>Your answer has been delivered safely.</p>";
+                let finalMsg = status === 'YES' ? "Yay! 💖<br>Answer Sent!" : "Answer Sent.";
+                document.querySelector('.container').innerHTML = `<h1 class='fade-in'>${finalMsg}</h1><p>You can close this window now.</p>`;
             });
         }
 
-        // --- UTILS ---
+        // --- UTILS & VISUALS ---
+
         function showScene(id) {
             document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
             document.getElementById(id).classList.remove('hidden');
@@ -184,7 +325,7 @@
             const copyText = document.getElementById("share-link");
             copyText.select();
             document.execCommand("copy");
-            alert("Link copied! Send it to them.");
+            alert("Link copied! Send it to your crush! 💘");
         }
 
         function logout() {
@@ -193,9 +334,27 @@
         }
 
         function cleanInput(input) {
-            input.value = input.value.replace(/[^a-zA-Z0-9]/g, ''); // Only letters/numbers
+            input.value = input.value.replace(/[^a-zA-Z0-9]/g, ''); 
+        }
+
+        function createBackgroundHearts() {
+            const container = document.getElementById('bg-hearts');
+            const hearts = ['❤️', '💖', '💕', '✨', '🌹'];
+            
+            for(let i=0; i<20; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('bg-heart');
+                heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+                
+                // Randomize positions and speed
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                heart.style.animationDelay = (Math.random() * 5) + 's';
+                
+                container.appendChild(heart);
+            }
         }
     </script>
-    <style>@keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }</style>
 </body>
 </html>
