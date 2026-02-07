@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Be My Valentine 💘</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
@@ -21,7 +21,8 @@
             background-size: 400% 400%;
             animation: bgMove 12s ease infinite;
             font-family: "Poppins", sans-serif;
-            overflow: hidden; /* Prevent scrolling when button runs */
+            overflow: hidden; 
+            padding-bottom: 40px; /* Space for footer */
         }
 
         @keyframes bgMove {
@@ -32,162 +33,201 @@
 
         /* --- GLASS CARD DESIGN --- */
         .card {
-            width: min(90%, 420px);
-            padding: 40px 30px;
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 28px;
+            width: 90%;
+            max-width: 400px;
+            padding: 30px 25px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 24px;
             text-align: center;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
-            z-index: 10;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
             position: relative;
-            transition: all 0.3s ease;
+            z-index: 10;
+            transition: transform 0.3s ease;
         }
 
         h1, h2 {
             font-family: "Playfair Display", serif;
             color: #4a1c2f;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            line-height: 1.3;
         }
         
-        h1 { font-size: 2rem; }
-        h2 { font-size: 1.8rem; line-height: 1.4; }
-        p { color: #555; font-size: 0.95rem; margin-bottom: 20px; }
+        p { color: #555; font-size: 0.9rem; margin-bottom: 20px; }
 
         /* --- INPUTS & BUTTONS --- */
         .input-group { text-align: left; margin-bottom: 15px; }
-        label { font-size: 0.8rem; color: #d6336c; font-weight: 600; margin-left: 10px; text-transform: uppercase; }
+        label { font-size: 0.75rem; color: #ff4757; font-weight: 700; margin-left: 10px; text-transform: uppercase; letter-spacing: 1px; }
         
         input, textarea {
-            width: 100%; padding: 14px; margin-top: 5px;
-            border-radius: 20px; border: 2px solid transparent;
-            background: rgba(255, 255, 255, 0.8);
-            font-family: inherit; font-size: 1rem; color: #333;
+            width: 100%; padding: 12px 15px; margin-top: 5px;
+            border-radius: 15px; border: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.9);
+            font-family: inherit; font-size: 0.95rem; color: #333;
             transition: 0.3s;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
         }
-        input:focus, textarea:focus { outline: none; background: #fff; box-shadow: 0 5px 15px rgba(255, 107, 129, 0.2); }
+        input:focus, textarea:focus { outline: none; border-color: #ff4757; background: #fff; box-shadow: 0 5px 15px rgba(255, 77, 109, 0.15); }
 
         button {
-            padding: 14px 36px; border-radius: 40px; border: none;
+            padding: 12px 30px; border-radius: 50px; border: none;
             font-size: 1rem; font-weight: 600; cursor: pointer;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.2);
             transition: transform 0.2s;
             width: 100%; margin-top: 10px;
         }
-        button:active { transform: scale(0.95); }
+        button:active { transform: scale(0.96); }
 
         .btn-primary {
             background: linear-gradient(135deg, #ff4d6d, #ff758f);
             color: white;
         }
         .btn-secondary {
-            background: rgba(255,255,255,0.5);
-            color: #d6336c;
-            border: 2px solid rgba(255,255,255,0.8);
+            background: transparent;
+            color: #ff4757;
+            border: 2px solid #ff4d6d;
+            box-shadow: none;
         }
+
+        /* --- DASHBOARD UI FIXES --- */
+        .dashboard-container {
+            text-align: left;
+            margin-top: 20px;
+        }
+        
+        .response-scroll-area {
+            max-height: 250px;
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-top: 10px;
+        }
+        /* Custom Scrollbar */
+        .response-scroll-area::-webkit-scrollbar { width: 5px; }
+        .response-scroll-area::-webkit-scrollbar-thumb { background: #ffccd5; border-radius: 10px; }
+
+        .response-card {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-left: 5px solid #ff4d6d;
+            animation: fadeIn 0.5s ease;
+        }
+        .res-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .res-name { font-weight: bold; color: #333; font-size: 1rem; }
+        .res-status { font-size: 1.2rem; }
+        .res-msg { font-size: 0.85rem; color: #666; font-style: italic; line-height: 1.4; }
+        .res-date { font-size: 0.7rem; color: #aaa; margin-top: 5px; display: block; text-align: right; }
 
         /* --- RUNAWAY BUTTON --- */
         #no-btn {
-            background: white; color: #555;
-            position: absolute; /* Allows it to move freely */
-            width: auto; padding: 10px 30px;
-            z-index: 100;
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: absolute; width: auto; padding: 10px 25px;
+            background: white; color: #555; z-index: 100;
+            font-size: 0.9rem; border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.15s ease-out;
         }
 
-        .buttons-container {
-            display: flex; justify-content: center; gap: 20px; min-height: 60px; align-items: center;
+        .buttons-wrapper {
+            display: flex; justify-content: center; gap: 20px; align-items: center; margin-top: 20px;
         }
 
-        /* --- FLOATING HEARTS --- */
+        /* --- FLOATING ELEMENTS --- */
         .heart {
-            position: absolute; bottom: -20px;
+            position: absolute; bottom: -30px;
             animation: floatUp linear forwards;
             pointer-events: none; z-index: 0;
         }
-        @keyframes floatUp {
-            to { transform: translateY(-120vh); opacity: 0; }
-        }
+        @keyframes floatUp { to { transform: translateY(-120vh); opacity: 0; } }
 
-        .emoji { font-size: 60px; animation: heartbeat 1.5s infinite; margin-bottom: 10px; display:block; }
-        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .emoji-header { font-size: 50px; margin-bottom: 10px; display: block; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Utility */
-        .hidden { display: none; }
-        .response-item {
-            background: rgba(255,255,255,0.6); padding: 10px; border-radius: 15px;
-            margin-bottom: 10px; text-align: left; font-size: 0.9rem;
-            border-left: 4px solid #ff4d6d;
-        }
+        .hidden { display: none !important; }
         .footer {
-            position: fixed; bottom: 10px; font-size: 12px; color: rgba(255,255,255,0.8); text-align: center;
+            position: fixed; bottom: 10px; width: 100%;
+            text-align: center; color: rgba(255,255,255,0.9);
+            font-size: 0.75rem; pointer-events: none;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            z-index: 20;
         }
     </style>
 </head>
 <body>
 
     <div id="scene-login" class="card">
-        <div class="emoji">🔒</div>
+        <span class="emoji-header">🔐</span>
         <h1>Valentine App</h1>
-        <p>Create a magic link for your crush, or login to view their answer.</p>
+        <p>Login to check your replies or create a link.</p>
         
         <div class="input-group">
             <label>Secret Passcode</label>
-            <input type="text" id="passcode" placeholder="e.g. Love123">
+            <input type="text" id="passcode" placeholder="e.g. HoneyBunny">
         </div>
-        <button class="btn-primary" onclick="handleLogin()">Enter</button>
+        <button class="btn-primary" onclick="handleLogin()">Login / Create</button>
     </div>
 
     <div id="scene-dashboard" class="card hidden">
-        <div class="emoji">📬</div>
-        <h2>Your Dashboard</h2>
-        <p>Send this link to your special someone:</p>
+        <span class="emoji-header">💌</span>
+        <h2>Inbox</h2>
+        <p style="margin-bottom:10px;">Send this link to your crush:</p>
         
-        <input type="text" id="share-link" readonly onclick="this.select()" style="text-align:center; font-size: 0.8rem; margin-bottom: 15px;">
-        <button class="btn-primary" onclick="copyLink()">Copy Link 📋</button>
+        <input type="text" id="share-link" readonly onclick="this.select()" style="text-align:center; font-size: 0.8rem; background: #fff;">
+        <button class="btn-primary" onclick="copyLink()" style="padding: 8px; font-size: 0.9rem; width: 60%; margin: 10px auto; display:block;">Copy Link</button>
         
-        <div style="margin-top: 30px; text-align: left; max-height: 200px; overflow-y: auto;">
-            <label>Inbox:</label>
-            <div id="responses-list" style="margin-top:10px;">Loading...</div>
+        <div class="dashboard-container">
+            <label>Responses Received:</label>
+            <div id="responses-list" class="response-scroll-area">
+                Loading...
+            </div>
         </div>
         
         <button class="btn-secondary" onclick="logout()" style="margin-top:20px;">Logout</button>
     </div>
 
-    <div id="scene-receiver" class="hidden" style="width: 100%; display: flex; justify-content: center;">
+    <div id="scene-question" class="card hidden">
+        <span class="emoji-header">🐱❤️</span>
+        <h2>Oyee,<br>will you be my Valentine?</h2>
         
-        <div id="step-question" class="card">
-            <div class="emoji">🐱❤️</div>
-            <h2>Oyee,<br />will you be my Valentine?</h2>
-            
-            <div class="buttons-container">
-                <button class="btn-primary" style="width: 120px;" onclick="handleYesClick()">Yes 💖</button>
-                <div style="width: 120px;"></div> 
-            </div>
+        <div class="buttons-wrapper">
+            <button class="btn-primary" style="width: 120px;" onclick="handleYesClick()">Yes 💖</button>
+            <div style="width: 120px;"></div> </div>
+    </div>
+
+    <button id="no-btn" class="hidden">No 😢</button>
+
+    <div id="scene-form" class="card hidden">
+        <span class="emoji-header">✨</span>
+        <p style="font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #d6336c; font-style: italic; line-height: 1.6;">
+            "मैं कितना ही थकूँ, तुझसे मिलने आने को दिल करता है, है किस्मत में तू नहीं शायद, फिर भी आजमाने को दिल करता है, तेरे चेहरे के रंग से कोई रंग चुराने को दिल करता है... तू है ही ऐसी, कि तुझे ज़माने को दिखाने का दिल करता है। ❤️✨ दिल ने सब कह दिया, अब बस एक सवाल बेहाल है…
+इतना बताओ सनम, अब आपका क्या ख़याल है? ❤️"
+        </p>
+        
+        <div class="input-group">
+            <label>Your Name</label>
+            <input type="text" id="r-name" placeholder="Sign here...">
         </div>
-
-        <button id="no-btn" class="hidden">No 😢</button>
-
-        <div id="step-form" class="card hidden">
-            <div class="emoji">✨</div>
-            <p style="font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #d6336c; font-style: italic;">
-                "तेरे चेहरे के रंग से कोई रंग चुराने को दिल करता है... <br>
-                तू है ही ऐसी, कि तुझे ज़माने को दिखाने का दिल करता है। ❤️"
-            </p>
-            <p><strong>Yay! Please sign your name:</strong></p>
-            
-            <input type="text" id="r-name" placeholder="Your Name">
-            <textarea id="r-msg" rows="2" placeholder="Any message? (Optional)"></textarea>
-            
-            <button class="btn-primary" onclick="sendReply()">Send My Love 💌</button>
+        <div class="input-group">
+            <label>Message (Optional)</label>
+            <textarea id="r-msg" rows="2" placeholder="Say something sweet..."></textarea>
         </div>
+        
+        <button class="btn-primary" onclick="sendReply()">Send My Love 💌</button>
+    </div>
 
+    <div id="scene-success" class="card hidden">
+        <span class="emoji-header">🥰</span>
+        <h1>Yay! Sent!</h1>
+        <p>Your answer has been delivered safely.</p>
     </div>
 
     <footer class="footer">
-        <p>@Ravikant • Made with love 💕</p>
+        <p>@NikshepPaliwal • Made with love 💕</p>
     </footer>
 
     <script>
@@ -203,8 +243,8 @@
         window.onload = () => {
             startFloatingHearts();
             if (urlID) {
-                // Show Receiver Scene
-                showScene('scene-receiver');
+                // Show Receiver Question
+                showScene('scene-question');
                 document.getElementById('no-btn').classList.remove('hidden');
                 initRunawayButton();
             } else {
@@ -222,19 +262,20 @@
         // --- LOGIN & DASHBOARD ---
         function handleLogin() {
             const pass = document.getElementById('passcode').value.trim();
-            if(!pass) return alert("Enter a passcode!");
+            if(!pass) return alert("Please enter a passcode!");
             
             localStorage.setItem('v_pass', pass);
-            const uid = btoa(pass).replace(/=/g, '').substring(0, 10); // Create ID from pass
+            const uid = btoa(pass).replace(/=/g, '').substring(0, 10);
             
             showScene('scene-dashboard');
             document.getElementById('share-link').value = window.location.href.split('?')[0] + "?id=" + uid;
+            
             fetchResponses(uid);
         }
 
         function fetchResponses(uid) {
             const list = document.getElementById('responses-list');
-            list.innerHTML = "Checking...";
+            list.innerHTML = "<p style='padding:20px; color:#999; text-align:center'>Updating inbox...</p>";
             
             fetch(SCRIPT_URL, {
                 method: 'POST',
@@ -244,22 +285,32 @@
             .then(res => {
                 list.innerHTML = "";
                 if(!res.data || res.data.length === 0) {
-                    list.innerHTML = "<p>No answers yet.</p>";
+                    list.innerHTML = "<p style='padding:20px; color:#999; text-align:center'>No replies yet. Share your link!</p>";
                     return;
                 }
+                
+                // Render Beautiful Cards
                 res.data.reverse().forEach(row => {
+                    // Safe formatting for date
+                    const dateStr = new Date(row.date).toLocaleDateString();
+                    
                     list.innerHTML += `
-                    <div class="response-item">
-                        <strong>${row.name}</strong> <span style="float:right">💖</span><br>
-                        <small>"${row.msg}"</small>
+                    <div class="response-card">
+                        <div class="res-header">
+                            <span class="res-name">${row.name}</span>
+                            <span class="res-status">💖</span>
+                        </div>
+                        <div class="res-msg">"${row.msg || 'No message'}"</div>
+                        <span class="res-date">${dateStr}</span>
                     </div>`;
                 });
+            })
+            .catch(err => {
+                list.innerHTML = "<p style='color:red; text-align:center'>Error loading.</p>";
             });
         }
 
         // --- RECEIVER INTERACTION ---
-        
-        // 1. Runaway Button Logic
         function initRunawayButton() {
             const moveBtn = () => {
                 const maxX = window.innerWidth - noBtn.offsetWidth - 20;
@@ -270,42 +321,34 @@
                 noBtn.style.top = `${Math.max(10, y)}px`;
             };
             
-            // Set initial position near the card
-            const cardRect = document.querySelector('#step-question').getBoundingClientRect();
+            // Initial positioning
+            const cardRect = document.querySelector('#scene-question').getBoundingClientRect();
             noBtn.style.top = (cardRect.bottom + 20) + 'px';
-            noBtn.style.left = (window.innerWidth/2 - noBtn.offsetWidth/2) + 'px';
+            noBtn.style.left = (window.innerWidth/2 - 40) + 'px';
 
             noBtn.addEventListener('mouseover', moveBtn);
             noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveBtn(); });
-            noBtn.addEventListener('click', moveBtn); // Just in case they click fast
+            noBtn.addEventListener('click', moveBtn);
         }
 
-        // 2. Handle YES Click
         function handleYesClick() {
             confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
-            
-            // Hide Question, Show Form
-            document.getElementById('step-question').classList.add('hidden');
-            document.getElementById('no-btn').classList.add('hidden'); // Hide the runaway button
-            
-            // Show the form with the Poem
-            const form = document.getElementById('step-form');
-            form.classList.remove('hidden');
+            document.getElementById('no-btn').classList.add('hidden');
+            showScene('scene-form');
         }
 
-        // 3. Send Data
         function sendReply() {
             const name = document.getElementById('r-name').value;
             const msg = document.getElementById('r-msg').value;
             
             if(!name) return alert("Please sign your name! ❤️");
             
-            document.querySelector('#scene-receiver').innerHTML = "<div class='card'><h1>Sent! 💘</h1><p>Your answer has been delivered.</p></div>";
+            showScene('scene-success');
             confetti();
 
             fetch(SCRIPT_URL, {
                 method: 'POST',
-                mode: 'no-cors',
+                mode: 'no-cors', // Important for Google Script
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     action: "save",
@@ -319,11 +362,11 @@
 
         // --- UTILS ---
         function showScene(id) {
-            document.querySelectorAll('body > div').forEach(div => div.classList.add('hidden'));
+            // Hide all cards
+            document.querySelectorAll('.card').forEach(div => div.classList.add('hidden'));
+            // Show target
             const el = document.getElementById(id);
             el.classList.remove('hidden');
-            // Allow flex display for receiver scene
-            if(id === 'scene-receiver') el.style.display = 'flex'; 
         }
 
         function copyLink() {
@@ -338,6 +381,7 @@
         }
 
         function startFloatingHearts() {
+            const container = document.body;
             setInterval(() => {
                 const heart = document.createElement("div");
                 heart.className = "heart";
@@ -345,9 +389,9 @@
                 heart.style.left = Math.random() * 100 + "vw";
                 heart.style.fontSize = Math.random() * 20 + 10 + "px";
                 heart.style.animationDuration = Math.random() * 3 + 2 + "s";
-                document.body.appendChild(heart);
+                container.appendChild(heart);
                 setTimeout(() => heart.remove(), 5000);
-            }, 400);
+            }, 500);
         }
     </script>
 </body>
